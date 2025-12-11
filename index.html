@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clxwnless.dev - Portfolio & Store</title>
+    <title data-key="page_title">clxwnless.dev - Portfolio & Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css"> 
     
     <style>
         /* --- ОСНОВНІ СТИЛІ --- */
         :root {
-            --bg-color: #050505;       /* Майже чорний */
-            --card-bg: #121212;        /* Темно-сірий */
+            --bg-color: #050505;
+            --card-bg: #121212;
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
-            --accent: #8b5cf6;         /* Фіолетовий неон */
+            --accent: #8b5cf6;
             --accent-hover: #7c3aed;
-            --discord: #5865F2;        /* Колір Discord */
-            --telegram: #24A1DE;       /* Колір Telegram */
-            --web: #F7DF1E;            /* Колір JS/Web */
+            --discord: #5865F2;
+            --telegram: #24A1DE;
+            --web: #F7DF1E;
         }
 
         body {
@@ -29,205 +31,8 @@
             line-height: 1.6;
         }
 
-        /* --- НАВІГАЦІЯ --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-        .highlight { color: var(--accent); text-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
-
-        .nav-links { display: flex; gap: 15px; }
-
-        .nav-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            cursor: pointer;
-            padding: 8px 20px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-weight: 500;
-        }
-
-        .nav-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.05); }
-        .nav-btn.active { 
-            background: var(--accent); 
-            color: white; 
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
-        }
-
-        /* --- КОНТЕЙНЕР --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; min-height: 80vh; }
-
-        .tab-content { display: none; animation: fadeIn 0.5s ease; }
-        .tab-content.active-tab { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- HERO & BIO SECTION --- */
-        .hero-section { text-align: center; margin-bottom: 40px; margin-top: 60px; }
-        .hero-section h1 { font-size: 3.5rem; margin-bottom: 10px; line-height: 1.1; }
-        .hero-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; }
-
-        /* Кнопки дій */
-        .action-btn {
-            background: var(--text-main);
-            color: black;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
-        }
-
-        .action-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-
-        /* Блок Біографії (прихований) */
-        #bio-block {
-            display: none;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            max-width: 700px;
-            margin: 20px auto;
-            text-align: left;
-            animation: fadeIn 0.6s ease;
-        }
-        
-        #bio-block h3 { color: var(--accent); margin-top: 0; }
-        #bio-block p { color: var(--text-muted); }
-
-        /* Кнопка "Показати проекти" */
-        .show-projects-btn {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-        .show-projects-btn:hover { background: var(--accent); color: white; }
-
-        /* --- СЕКЦІЯ ПРОЕКТІВ (ПОРТФОЛІО) --- */
-        #projects-block { display: none; margin-top: 60px; }
-        
-        .category-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .cat-icon { padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; color: black; }
-        .discord-bg { background: var(--discord); }
-        .telegram-bg { background: var(--telegram); }
-        .web-bg { background: var(--web); }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        
-        .project-card h3 { margin-top: 0; font-size: 1.3rem; }
-        .project-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-        
-        /* Стилі для тегів */
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
-        .tag { font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; color: #ccc; }
-        
-        /* Окремий колір для тегу Python/JS, щоб виділявся */
-        .tag-lang { background: rgba(139, 92, 246, 0.2); color: var(--accent); border: 1px solid rgba(139, 92, 246, 0.3); }
-
-        /* --- МАГАЗИН --- */
-        .store-header { text-align: center; margin-bottom: 40px; }
-        .price-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--accent);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        .buy-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: white;
-            color: black;
-            text-decoration: none;
-            padding: 10px 0;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-        .buy-btn:hover { background: var(--accent); color: white; }
-
-        .custom-order-block {
-            text-align: center;
-            margin-top: 60px;
-            padding: 40px;
-            background: linear-gradient(45deg, rgba(139,92,246,0.1), transparent);
-            border-radius: 20px;
-            border: 1px solid rgba(139,92,246,0.2);
-        }
-
-        .custom-btn {
-            display: inline-block;
-            margin-top: 20px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-            transition: 0.3s;
-        }
-        .custom-btn:hover { transform: scale(1.05); }
-
+        /* [Далі йдуть всі ваші стилі...] */
+        /* Щоб не дублювати CSS, я залишив його в наступному блоці (2. CSS) */
     </style>
 </head>
 <body>
@@ -235,8 +40,17 @@
     <nav class="navbar">
         <div class="logo">clxwnless.<span class="highlight">dev</span></div>
         <div class="nav-links">
-            <button class="nav-btn active" onclick="openTab(event, 'about')">Про мене</button>
-            <button class="nav-btn" onclick="openTab(event, 'store')">Магазин</button>
+            <button class="nav-btn active" data-key="nav_about" onclick="openTab(event, 'about')">Про мене</button>
+            <button class="nav-btn" data-key="nav_store" onclick="openTab(event, 'store')">Магазин</button>
+            
+            <div class="language-selector">
+                <button class="nav-btn" id="lang-button" data-key="lang_button">Мова</button>
+                <div id="language-dropdown" class="dropdown-content">
+                    <a href="#" class="lang-option" data-lang="uk">Українська</a>
+                    <a href="#" class="lang-option" data-lang="en">English</a>
+                    <a href="#" class="lang-option" data-lang="ru">Русский</a>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -244,89 +58,89 @@
         
         <div id="about" class="tab-content active-tab">
             <div class="hero-section">
-                <h1>Привіт, я <span class="highlight">clxwnless</span></h1>
-                <p class="hero-subtitle">Developer | Discord & Telegram Bot Creator | Student</p>
+                <h1 data-key="hero_title">Привіт, я <span class="highlight">clxwnless</span></h1>
+                <p class="hero-subtitle" data-key="hero_subtitle">Developer | Discord & Telegram Bot Creator | Student</p>
                 
-                <button class="action-btn" id="bio-btn" onclick="showBio()">МОЄ БІО</button>
+                <button class="action-btn" id="bio-btn" data-key="btn_my_bio" onclick="showBio()">МОЄ БІО</button>
             </div>
 
             <div id="bio-block">
-                <h3>👋 Трохи про мене</h3>
-                <p>
+                <h3 data-key="bio_title">👋 Трохи про мене</h3>
+                <p data-key="bio_text_1">
                     Всім привіт, я <strong>Даня</strong>, мені 17 років. Я створюю складних та функціональних ботів для Discord і Telegram, а також розробляю сайти. Наразі навчаюсь в університеті, але весь вільний час присвячую коду.
                 </p>
-                <p>
+                <p data-key="bio_text_2">
                     Мій підхід — це чистий код, швидкість та увага до деталей. Якщо тобі потрібен інструмент для автоматизації спільноти або бізнесу — ти за адресою.
                 </p>
                 
-                <button class="show-projects-btn" onclick="showProjects()">⬇ ПОКАЗАТИ ПРОЕКТИ</button>
+                <button class="show-projects-btn" data-key="btn_show_projects" onclick="showProjects()">⬇ ПОКАЗАТИ ПРОЕКТИ</button>
             </div>
 
             <div id="projects-block">
                 
                 <div class="category-title">
-                    <span class="cat-icon discord-bg">DISCORD</span> Боти
+                    <span class="cat-icon discord-bg">DISCORD</span> <span data-key="cat_discord">Боти</span>
                 </div>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <h3>🤖 Support Bot</h3>
-                        <p>Бот для ідентифікації користувачів. Команди для вибору гендеру (Хлопець/Дівчина), автоматичний бан за твінки та система перевірки.</p>
+                        <h3 data-key="proj_support_title">🤖 Support Bot</h3>
+                        <p data-key="proj_support_desc">Бот для ідентифікації користувачів. Команди для вибору гендеру (Хлопець/Дівчина), автоматичний бан за твінки та система перевірки.</p>
                         <div class="tags">
-                            <span class="tag">Security</span>
+                            <span class="tag" data-key="tag_security">Security</span>
                             <span class="tag tag-lang">Python</span>
                         </div>
                     </div>
                     <div class="project-card">
-                        <h3>🛡️ Moderation System</h3>
-                        <p>Потужна модерація з кнопками. Виявлення твінків, повна інформація про акаунт (дата створення, ролі), логи дій.</p>
+                        <h3 data-key="proj_mod_title">🛡️ Moderation System</h3>
+                        <p data-key="proj_mod_desc">Потужна модерація з кнопками. Виявлення твінків, повна інформація про акаунт (дата створення, ролі), логи дій.</p>
                         <div class="tags">
-                            <span class="tag">Admin</span>
-                            <span class="tag">Logs</span>
+                            <span class="tag" data-key="tag_admin">Admin</span>
+                            <span class="tag" data-key="tag_logs">Logs</span>
                             <span class="tag tag-lang">Python</span>
                         </div>
                     </div>
                     <div class="project-card">
-                        <h3>❤️ Finder (Dating)</h3>
-                        <p>Бот для знайомств. Гарні ембеди, створення анкети через модальне вікно. Кнопка "Написати" перекидає в профіль людини.</p>
+                        <h3 data-key="proj_finder_title">❤️ Finder (Dating)</h3>
+                        <p data-key="proj_finder_desc">Бот для знайомств. Гарні ембеди, створення анкети через модальне вікно. Кнопка "Написати" перекидає в профіль людини.</p>
                         <div class="tags">
-                            <span class="tag">Social</span>
-                            <span class="tag">Modals</span>
+                            <span class="tag" data-key="tag_social">Social</span>
+                            <span class="tag" data-key="tag_modals">Modals</span>
                             <span class="tag tag-lang">Python</span>
                         </div>
                     </div>
                     <div class="project-card">
-                        <h3>🎵 DJ Music</h3>
-                        <p>Музичний бот. Команда <code>/play</code> + посилання. Підтримка YouTube треків до 5 хвилин. Висока якість звуку.</p>
+                        <h3 data-key="proj_music_title">🎵 DJ Music</h3>
+                        <p data-key="proj_music_desc">Музичний бот. Команда <code>/play</code> + посилання. Підтримка YouTube треків до 5 хвилин. Висока якість звуку.</p>
                         <div class="tags">
-                            <span class="tag">Music</span>
-                            <span class="tag">Voice</span>
+                            <span class="tag" data-key="tag_music">Music</span>
+                            <span class="tag" data-key="tag_voice">Voice</span>
                             <span class="tag tag-lang">Python</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="category-title">
-                    <span class="cat-icon telegram-bg">TELEGRAM</span> Боти
+                    <span class="cat-icon telegram-bg">TELEGRAM</span> <span data-key="cat_telegram">Боти</span>
                 </div>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <h3>👕 ClothShop</h3>
-                        <p>Повноцінний магазин одягу в Telegram. Меню з кнопками, каталог товарів, система відгуків та форма оформлення замовлення.</p>
+                        <h3 data-key="proj_shop_title">👕 ClothShop</h3>
+                        <p data-key="proj_shop_desc">Повноцінний магазин одягу в Telegram. Меню з кнопками, каталог товарів, система відгуків та форма оформлення замовлення.</p>
                         <div class="tags">
-                            <span class="tag">E-commerce</span>
-                            <span class="tag">Shop</span>
+                            <span class="tag" data-key="tag_ecommerce">E-commerce</span>
+                            <span class="tag" data-key="tag_shop">Shop</span>
                             <span class="tag tag-lang">Python</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="category-title">
-                    <span class="cat-icon web-bg">WEB</span> Сайти
+                    <span class="cat-icon web-bg">WEB</span> <span data-key="cat_web">Сайти</span>
                 </div>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <h3>🌐 My First Site</h3>
-                        <p>Цей сайт-портфоліо є моєю першою публічною веб-розробкою. Розділ буде оновлюватися новими проектами згодом.</p>
+                        <h3 data-key="proj_first_title">🌐 My First Site</h3>
+                        <p data-key="proj_first_desc">Цей сайт-портфоліо є моєю першою публічною веб-розробкою. Розділ буде оновлюватися новими проектами згодом.</p>
                         <div class="tags">
                             <span class="tag">HTML/CSS</span>
                             <span class="tag tag-lang">JavaScript</span>
@@ -339,111 +153,69 @@
 
         <div id="store" class="tab-content">
             <div class="store-header">
-                <h1>Магазин Послуг</h1>
-                <p style="color: var(--text-muted);">Готові рішення для вашого сервера чи бізнесу</p>
+                <h1 data-key="store_main_title">Магазин Послуг</h1>
+                <p style="color: var(--text-muted);" data-key="store_subtitle">Готові рішення для вашого сервера чи бізнесу</p>
             </div>
             
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="price-tag">300 ₴</div>
-                    <h3>Support Bot</h3>
-                    <p>Ідентифікація, гендери, анти-твінк система.</p>
+                    <h3 data-key="store_support_title">Support Bot</h3>
+                    <p data-key="store_support_desc">Ідентифікація, гендери, анти-твінк система.</p>
                     <div class="tags"><span class="tag tag-lang">Python</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Купити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_buy">Купити</a>
                 </div>
 
                 <div class="project-card">
                     <div class="price-tag">500 ₴</div>
-                    <h3>Moderation Bot</h3>
-                    <p>Кнопкова модерація, логи, інфо про акаунт.</p>
+                    <h3 data-key="store_mod_title">Moderation Bot</h3>
+                    <p data-key="store_mod_desc">Кнопкова модерація, логи, інфо про акаунт.</p>
                     <div class="tags"><span class="tag tag-lang">Python</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Купити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_buy">Купити</a>
                 </div>
 
                 <div class="project-card">
                     <div class="price-tag">600 ₴</div>
-                    <h3>Finder (Dating)</h3>
-                    <p>Система анкет, знайомства, модальні вікна.</p>
+                    <h3 data-key="store_finder_title">Finder (Dating)</h3>
+                    <p data-key="store_finder_desc">Система анкет, знайомства, модальні вікна.</p>
                     <div class="tags"><span class="tag tag-lang">Python</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Купити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_buy">Купити</a>
                 </div>
 
                 <div class="project-card">
                     <div class="price-tag">400 ₴</div>
-                    <h3>DJ Music Bot</h3>
-                    <p>Музика у войсі, проста команда /play.</p>
+                    <h3 data-key="store_music_title">DJ Music Bot</h3>
+                    <p data-key="store_music_desc">Музика у войсі, проста команда /play.</p>
                     <div class="tags"><span class="tag tag-lang">Python</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Купити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_buy">Купити</a>
                 </div>
 
                 <div class="project-card">
                     <div class="price-tag">800 ₴</div>
-                    <h3>ClothShop (TG)</h3>
-                    <p>Магазин в Телеграм під ключ з адмінкою.</p>
+                    <h3 data-key="store_shop_title">ClothShop (TG)</h3>
+                    <p data-key="store_shop_desc">Магазин в Телеграм під ключ з адмінкою.</p>
                     <div class="tags"><span class="tag tag-lang">Python</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Купити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_buy">Купити</a>
                 </div>
 
                 <div class="project-card">
-                    <div class="price-tag">Від 500 ₴</div>
-                    <h3>Web Site</h3>
-                    <p>Сайт-візитка або портфоліо (HTML/CSS/JS).</p>
+                    <div class="price-tag" data-key="store_web_price">Від 500 ₴</div>
+                    <h3 data-key="store_web_title">Web Site</h3>
+                    <p data-key="store_web_desc">Сайт-візитка або портфоліо (HTML/CSS/JS).</p>
                     <div class="tags"><span class="tag tag-lang">JavaScript</span></div>
-                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn">Замовити</a>
+                    <a href="https://t.me/overdosedclxwn" target="_blank" class="buy-btn" data-key="btn_order">Замовити</a>
                 </div>
             </div>
 
             <div class="custom-order-block">
-                <h2>Потрібно щось унікальне?</h2>
-                <p>Я можу розробити бота або сайт під твоє технічне завдання.</p>
-                <a href="https://t.me/overdosedclxwn" target="_blank" class="custom-btn">📩 ЗАМОВИТИ ІНШЕ</a>
+                <h2 data-key="custom_order_title">Потрібно щось унікальне?</h2>
+                <p data-key="custom_order_desc">Я можу розробити бота або сайт під твоє технічне завдання.</p>
+                <a href="https://t.me/overdosedclxwn" target="_blank" class="custom-btn" data-key="btn_custom_order">📩 ЗАМОВИТИ ІНШЕ</a>
             </div>
         </div>
 
     </main>
 
-    <script>
-        // Функція перемикання вкладок
-        function openTab(evt, tabName) {
-            var tabContent = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-                tabContent[i].classList.remove("active-tab");
-            }
-
-            var navBtns = document.getElementsByClassName("nav-btn");
-            for (var i = 0; i < navBtns.length; i++) {
-                navBtns[i].classList.remove("active");
-            }
-
-            document.getElementById(tabName).style.display = "block";
-            // Невелика затримка для анімації
-            setTimeout(() => {
-                document.getElementById(tabName).classList.add("active-tab");
-            }, 10);
-
-            evt.currentTarget.classList.add("active");
-        }
-
-        // Функція показу Біографії
-        function showBio() {
-            var bioBtn = document.getElementById("bio-btn");
-            var bioBlock = document.getElementById("bio-block");
-            
-            // Ховаємо кнопку
-            bioBtn.style.display = "none";
-            // Показуємо блок з біо
-            bioBlock.style.display = "block";
-        }
-
-        // Функція показу Проектів
-        function showProjects() {
-            var projectsBlock = document.getElementById("projects-block");
-            projectsBlock.style.display = "block";
-            
-            // Плавний скрол до проектів
-            projectsBlock.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    <script src="script.js"></script> 
 </body>
 </html>
