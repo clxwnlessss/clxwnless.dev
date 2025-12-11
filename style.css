@@ -1,11 +1,15 @@
-/* Змінні кольорів для легкого редагування */
+/* --- ОСНОВНІ СТИЛІ --- */
 :root {
-    --bg-color: #0f172a; /* Темно-синій фон */
-    --card-bg: #1e293b;   /* Світліший фон для карток */
-    --text-main: #f8fafc; /* Білий текст */
-    --text-muted: #94a3b8; /* Сірий текст */
-    --accent: #38bdf8;    /* Неоновий блакитний */
-    --accent-glow: rgba(56, 189, 248, 0.3);
+    /* Стилі з першого блоку */
+    --bg-color: #050505; 
+    --card-bg: #121212; 
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+    --accent: #8b5cf6; 
+    --accent-hover: #7c3aed;
+    --discord: #5865F2; 
+    --telegram: #24A1DE; 
+    --web: #F7DF1E; 
 }
 
 body {
@@ -14,162 +18,258 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* --- Навігація --- */
+/* --- НАВІГАЦІЯ --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 2rem;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(10px); /* Ефект матового скла */
+    background: rgba(5, 5, 5, 0.9);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
+.logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+.highlight { color: var(--accent); text-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
 
-.highlight {
-    color: var(--accent);
-    text-shadow: 0 0 10px var(--accent-glow);
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
+.nav-links { display: flex; gap: 15px; }
 
 .nav-btn {
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    padding: 8px 16px;
+    padding: 8px 20px;
+    border-radius: 20px;
     transition: all 0.3s ease;
-    position: relative;
     font-family: inherit;
+    font-weight: 500;
 }
 
-.nav-btn:hover {
-    color: var(--text-main);
+.nav-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.05); }
+.nav-btn.active { 
+    background: var(--accent); 
+    color: white; 
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
 }
 
-/* Активна кнопка меню */
-.nav-btn.active {
-    color: var(--accent);
+/* --- СТИЛІ ДЛЯ ВИБОРУ МОВИ --- */
+.language-selector {
+    position: relative; 
+    display: inline-block;
+    /* Скидаємо стилі кнопки, щоб вона виглядала як інші nav-btn */
+    margin-left: 10px; 
 }
 
-.nav-btn.active::after {
-    content: '';
+#lang-button {
+    /* Перевизначаємо, щоб не мати окремого стилю active */
+    background: transparent;
+    color: var(--text-muted);
+    padding: 8px 16px; 
+    border-radius: 20px;
+    border: none;
+}
+
+#lang-button:hover { 
+    color: var(--text-main); 
+    background: rgba(255,255,255,0.05); 
+}
+
+.dropdown-content {
+    display: none; 
     position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
+    top: 100%; /* Розміщуємо під кнопкою */
+    right: 0; /* Вирівнювання по правому краю */
+    background-color: var(--card-bg);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    z-index: 101; /* Поверх navbar */
+    overflow: hidden;
+    margin-top: 5px;
 }
 
-/* --- Контент та Анімації --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
+.dropdown-content a {
+    color: var(--text-main);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
-/* Приховуємо вкладки за замовчуванням */
-.tab-content {
-    display: none;
-    animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1); /* Плавна анімація */
+.dropdown-content a:hover {
+    background-color: rgba(255,255,255,0.08);
 }
 
-/* Показуємо активну вкладку */
-.tab-content.active-tab {
+.show {
     display: block;
 }
 
-/* Анімація появи (Виїжджає знизу і стає прозорим) */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* --- КОНТЕЙНЕР --- */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; min-height: 80vh; }
+
+.tab-content { display: none; animation: fadeIn 0.5s ease; }
+.tab-content.active-tab { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- HERO & BIO SECTION --- */
+.hero-section { text-align: center; margin-bottom: 40px; margin-top: 60px; }
+.hero-section h1 { font-size: 3.5rem; margin-bottom: 10px; line-height: 1.1; }
+.hero-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; }
+
+/* Кнопки дій */
+.action-btn {
+    background: var(--text-main);
+    color: black;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
 }
 
-/* --- Про мене / Hero --- */
-.hero-section {
-    text-align: center;
-    margin-bottom: 60px;
-    padding: 60px 0;
+.action-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+/* Блок Біографії (прихований) */
+#bio-block {
+    display: none;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+    max-width: 700px;
+    margin: 20px auto;
+    text-align: left;
+    animation: fadeIn 0.6s ease;
 }
 
-.hero-section h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
+#bio-block h3 { color: var(--accent); margin-top: 0; }
+#bio-block p { color: var(--text-muted); }
+
+/* Кнопка "Показати проекти" */
+.show-projects-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+.show-projects-btn:hover { background: var(--accent); color: white; }
+
+/* --- СЕКЦІЯ ПРОЕКТІВ (ПОРТФОЛІО) --- */
+#projects-block { display: none; margin-top: 60px; }
+
+.category-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* --- Портфоліо --- */
-.portfolio-grid, .store-grid {
+.cat-icon { padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; color: black; }
+.discord-bg { background: var(--discord); }
+.telegram-bg { background: var(--telegram); }
+.web-bg { background: var(--web); }
+
+.projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
 
-.portfolio-card {
-    background-color: var(--card-bg);
-    padding: 30px;
+.project-card {
+    background: var(--card-bg);
+    padding: 25px;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.portfolio-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    border-color: var(--accent);
+.project-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+.project-card h3 { margin-top: 0; font-size: 1.3rem; }
+.project-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
+
+/* Стилі для тегів */
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.tag { font-size: 0.75rem; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; color: #ccc; }
+
+/* Окремий колір для тегу Python/JS, щоб виділявся */
+.tag-lang { background: rgba(139, 92, 246, 0.2); color: var(--accent); border: 1px solid rgba(139, 92, 246, 0.3); }
+
+/* --- МАГАЗИН --- */
+.store-header { text-align: center; margin-bottom: 40px; }
+.price-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px var(--accent);
 }
 
-.card-icon {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-/* --- Магазин (Заглушка) --- */
-.store-header {
+.buy-btn {
+    display: block;
+    width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.3s;
 }
+.buy-btn:hover { background: var(--accent); color: white; }
 
-.empty-state {
+.custom-order-block {
     text-align: center;
-    padding: 50px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 12px;
-    grid-column: 1 / -1; /* На всю ширину */
+    margin-top: 60px;
+    padding: 40px;
+    background: linear-gradient(45deg, rgba(139,92,246,0.1), transparent);
+    border-radius: 20px;
+    border: 1px solid rgba(139,92,246,0.2);
 }
 
-.loader {
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--text-muted);
-    border-top: 4px solid var(--accent);
-    border-radius: 50%;
-    margin: 20px auto;
-    animation: spin 1s linear infinite;
+.custom-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    transition: 0.3s;
 }
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+.custom-btn:hover { transform: scale(1.05); }
